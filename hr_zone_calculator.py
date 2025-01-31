@@ -1,5 +1,6 @@
-import tkinter as tk
-from tkinter import messagebox
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
 
 def calculate_hr_zones(thr):
     """
@@ -14,25 +15,16 @@ def calculate_hr_zones(thr):
     }
     return zones
 
-def on_calculate():
-    try:
-        thr = int(entry_thr.get())
-        hr_zones = calculate_hr_zones(thr)
-        result_text.set("\n".join([f"{zone}: {min_hr} - {max_hr} bpm" for zone, (min_hr, max_hr) in hr_zones.items()]))
-    except ValueError:
-        messagebox.showerror("Input Error", "Please enter a valid number for THR.")
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    hr_zones = None
+    if request.method == 'POST':
+        try:
+            thr = int(request.form['thr'])
+            hr_zones = calculate_hr_zones(thr)
+        except ValueError:
+            hr_zones = "Invalid input. Please enter a valid number."
+    return render_template('index.html', hr_zones=hr_zones)
 
-# GUI Setup
-root = tk.Tk()
-root.title("Heart Rate Zone Calculator")
-
-tk.Label(root, text="Enter your Threshold Heart Rate (THR) in bpm:").pack(pady=5)
-entry_thr = tk.Entry(root)
-entry_thr.pack(pady=5)
-
-tk.Button(root, text="Calculate Zones", command=on_calculate).pack(pady=5)
-
-result_text = tk.StringVar()
-tk.Label(root, textvariable=result_text, justify="left").pack(pady=5)
-
-root.mainloop()
+if __name__ == '__main__':
+    app.run(debug=True)
