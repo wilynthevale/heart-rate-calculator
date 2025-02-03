@@ -27,11 +27,11 @@ function calculateZones() {
         "Zone 5 (90-100%)": [Math.round(maxHR * 0.90), Math.round(maxHR * 1.00)]
     };
 
-    let resultsHtml = "<ul>";
+    let resultsHtml = "<table><tr><th>Zone</th><th>Heart Rate (bpm)</th></tr>";
     for (let zone in zones) {
-        resultsHtml += `<li><strong>${zone}:</strong> ${zones[zone][0]} - ${zones[zone][1]} bpm</li>`;
+        resultsHtml += `<tr><td>${zone}</td><td>${zones[zone][0]} - ${zones[zone][1]}</td></tr>`;
     }
-    resultsHtml += "</ul>";
+    resultsHtml += "</table>";
 
     document.getElementById("results").innerHTML = resultsHtml;
 }
