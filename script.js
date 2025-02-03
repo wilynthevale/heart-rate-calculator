@@ -28,13 +28,14 @@ function calculateZones() {
         "Zone 5 (90-100%)": { range: [Math.round(maxHR * 0.90), Math.round(maxHR * 1.00)], class: "zone5" }
     };
 
-    let resultsHtml = "<table><tr><th>Zone</th><th>Heart Rate (bpm)</th></tr>";
+    let resultsHtml = "<h2>Heart Rate Zones</h2><table><tr><th>Zone</th><th>Heart Rate (bpm)</th></tr>";
     for (let zone in zones) {
         resultsHtml += `<tr class="${zones[zone].class}"><td>${zone}</td><td>${zones[zone].range[0]} - ${zones[zone].range[1]}</td></tr>`;
     }
     resultsHtml += "</table>";
 
     let descriptionsHtml = `
+        <h3>HR Zone Descriptions</h3>
         <div class="zone-description"><strong>Zone 1 (50-60%):</strong> This is your recovery zone, ideal for warm-ups, cool-downs, and active recovery. Training here helps build endurance without stress.</div>
         <div class="zone-description"><strong>Zone 2 (60-70%):</strong> The endurance zone where fat is the primary fuel source. Great for long-distance training and improving aerobic efficiency.</div>
         <div class="zone-description"><strong>Zone 3 (70-80%):</strong> A balanced aerobic zone where you improve cardiovascular fitness and strength. Suitable for tempo runs and steady-state efforts.</div>
