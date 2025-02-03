@@ -4,44 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Rate Zone Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        .container {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        input, button {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h2>Heart Rate Zone Calculator</h2>
-        <form method="post">
-            <label for="thr">Enter Your Threshold Heart Rate (THR) in bpm:</label>
-            <input type="number" id="thr" name="thr" required>
-            <button type="submit">Calculate</button>
-        </form>
+        <h1>Heart Rate Zone Calculator</h1>
         
-        {% if hr_zones %}
-            <h3>Heart Rate Zones:</h3>
-            <ul>
-                {% for zone, values in hr_zones.items() %}
-                    <li><strong>{{ zone }}:</strong> {{ values[0] }} - {{ values[1] }} bpm</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        <label for="age">Age (years):</label>
+        <input type="number" id="age" placeholder="Enter your age" oninput="toggleThreshold()">
+        <small>If you enter a Threshold HR, Age will be ignored.</small>
+
+        <label for="threshold">Threshold Heart Rate (bpm):</label>
+        <input type="number" id="threshold" placeholder="Enter threshold HR" oninput="toggleThreshold()">
+        <small>Leave blank to use age-based calculation.</small>
+
+        <button onclick="calculateZones()">Calculate</button>
+
+        <h2>Heart Rate Zones</h2>
+        <div id="results"></div>
+
+        <h3>Zone Descriptions</h3>
+        <ul>
+            <li><strong>Zone 1 (50-60%):</strong> Recovery, easy pace.</li>
+            <li><strong>Zone 2 (60-70%):</strong> Endurance, comfortable pace.</li>
+            <li><strong>Zone 3 (70-80%):</strong> Aerobic, moderate effort.</li>
+            <li><strong>Zone 4 (80-90%):</strong> Threshold, hard effort.</li>
+            <li><strong>Zone 5 (90-100%):</strong> Max effort, sprinting.</li>
+        </ul>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
